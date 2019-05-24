@@ -1,4 +1,5 @@
 ﻿using NoteKeeperChallenge.Model;
+using NoteKeeperChallenge.Model.Services;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -6,15 +7,17 @@ namespace NoteKeeperChallenge.ViewModel
 {
     public class NoteViewModel
     {
-        public FileFormat FileFormat { get; set; }
-        public void SaveToFile(string title, string text)
+        private readonly IStorageService _storageService;
+
+        public NoteViewModel(IStorageService storageService)
+        {
+            _storageService = storageService;
+        }
+
+        public void SaveFile(string title, string text, string path)
         {
             Note note = new Note(title, text);
-            XmlSerializer serializer = new XmlSerializer(typeof(Note));
-            using (TextWriter tw = new StreamWriter(@"C:\GitHub\NoteKeeperChallenge\NoteXML.xml"))
-            {
-                serializer.Serialize(tw, note);
-            }
+            _storageService.SaveToFile(note, path);
         }
     }
 }

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace NoteKeeperChallenge.Tests
 {
-    public class UnitTest1
+    public class StorageServiceTest
     {
         [Fact]
         public void Test1()
