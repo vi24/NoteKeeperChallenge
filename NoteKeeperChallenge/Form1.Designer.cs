@@ -37,6 +37,7 @@
             this.LastEditedLabel = new System.Windows.Forms.Label();
             this.LastEditedDateLabel = new System.Windows.Forms.Label();
             this.CreatedDateLabel = new System.Windows.Forms.Label();
+            this.NoteFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // NoteTitleTextBox
@@ -74,12 +75,13 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(308, 64);
+            this.SaveButton.Location = new System.Drawing.Point(332, 64);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 20);
             this.SaveButton.TabIndex = 4;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // CreatedLabel
             // 
@@ -115,11 +117,20 @@
             this.CreatedDateLabel.Size = new System.Drawing.Size(101, 14);
             this.CreatedDateLabel.TabIndex = 10;
             // 
+            // NoteFormat
+            // 
+            this.NoteFormat.FormattingEnabled = true;
+            this.NoteFormat.Location = new System.Drawing.Point(301, 230);
+            this.NoteFormat.Name = "NoteFormat";
+            this.NoteFormat.Size = new System.Drawing.Size(121, 21);
+            this.NoteFormat.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 448);
+            this.ClientSize = new System.Drawing.Size(448, 448);
+            this.Controls.Add(this.NoteFormat);
             this.Controls.Add(this.CreatedDateLabel);
             this.Controls.Add(this.LastEditedDateLabel);
             this.Controls.Add(this.LastEditedLabel);
@@ -130,7 +141,7 @@
             this.Controls.Add(this.NoteTextBox);
             this.Controls.Add(this.NoteTitleTextBox);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Note Keeper";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,6 +158,7 @@
         private System.Windows.Forms.Label LastEditedLabel;
         private System.Windows.Forms.Label LastEditedDateLabel;
         private System.Windows.Forms.Label CreatedDateLabel;
+        private System.Windows.Forms.ComboBox NoteFormat;
     }
 }
 
