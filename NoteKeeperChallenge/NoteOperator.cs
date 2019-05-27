@@ -8,56 +8,46 @@ namespace NoteKeeperChallenge
     public class NoteKeeperOperator
     {
         private IStorageService _storageService;
-        private Note _note;
-        private const string FILE_NAME_WITHOUT_EXTENSION = "foo";
-        private const string FILE_NAME_JSON = "foo.json";
+        public Note Note { get; private set; }
+        private const string FILE_NAME = "foo";
+        private const string FILE_EXTENSION = ".json";
 
-        private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\SerializedNotes"));
+        private readonly string _noteFilesDirectory;
 
         public NoteKeeperOperator(IStorageService service)
         {
             _storageService = service;
+            _noteFilesDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\SerializedNotes"));
         }
+
+        public NoteKeeperOperator(IStorageService service, string noteFilesDirectory)
+        {
+            _storageService = service;
+            _noteFilesDirectory = noteFilesDirectory;
+        }
+
 
         public void Save(string title, string text)
         {
-            if (File.Exists(Path.Combine(PATH, FILE_NAME_JSON)))
+            if (File.Exists(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION)))
             {
-                _note.Title = title;
-                _note.Text = text;
-                _note.LastEdited = DateTime.Now;
-                _storageService.SaveToFile(_note, Path.Combine(PATH, FILE_NAME_WITHOUT_EXTENSION));
+                OpenLastSavedNote();
+                Note.Title = title;
+                Note.Text = text;
+                Note.LastEdited = DateTime.Now;
+                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
             }
             else
             {
-                _note = new Note(title, text, DateTime.Now, DateTime.Now);
-                _storageService.SaveToFile(_note, Path.Combine(PATH, FILE_NAME_WITHOUT_EXTENSION));
+                Note = new Note(title, text, DateTime.Now, DateTime.Now);
+                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
             }
         }
 
         public void OpenLastSavedNote()
         {
-            if (!File.Exists(Path.Combine(PATH, FILE_NAME_JSON))) return;
-            _note = (Note)_storageService.OpenFile(Path.Combine(PATH, FILE_NAME_JSON));
-        }
-
-        public void LoadContentFromNote(out string title, out string text, out string createdText, out string lastEditedText)
-        {
-            if(_note != null)
-            {
-                title = _note.Title;
-                text = _note.Text;
-                createdText = _note.Created.ToString();
-                lastEditedText = _note.LastEdited.ToString();
-            }
-            else
-            {
-                title = String.Empty;
-                text = String.Empty;
-                createdText = String.Empty;
-                lastEditedText = String.Empty;
-            }
-
+            if (!File.Exists(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION))) return;
+            Note = (Note)_storageService.OpenFile(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
         }
     }
 }

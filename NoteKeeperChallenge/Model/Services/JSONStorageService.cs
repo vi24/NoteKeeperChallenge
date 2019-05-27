@@ -28,7 +28,7 @@ namespace NoteKeeperChallenge.Model.Services
 
         public void SaveToFile(Object obj, string path)
         {
-            using (var stream = File.Open(path + ".json", FileMode.Create))
+            using (var stream = File.Open(path, FileMode.Create))
             {
                 using (var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8))
                 {

@@ -8,10 +8,6 @@ namespace NoteKeeperChallenge
     public partial class NoteKeeperForm : Form
     {
         NoteKeeperOperator _noteKeeperOperator;
-        private string _title;
-        private string _text;
-        private string _created;
-        private string _lastEdited;
 
         public NoteKeeperForm()
         {
@@ -42,11 +38,10 @@ namespace NoteKeeperChallenge
 
         private void UpdateNoteMetaDataOnForms()
         {
-            _noteKeeperOperator.LoadContentFromNote(out _title, out _text, out _created, out _lastEdited);
-            NoteTitleTextBox.Text = _title;
-            NoteTextBox.Text = _text;
-            CreatedDateLabel.Text = _created;
-            LastEditedDateLabel.Text = _lastEdited;
+            NoteTitleTextBox.Text = _noteKeeperOperator.Note.Title;
+            NoteTextBox.Text = _noteKeeperOperator.Note.Text;
+            CreatedDateLabel.Text = _noteKeeperOperator.Note.Created.ToString();
+            LastEditedDateLabel.Text = _noteKeeperOperator.Note.LastEdited.ToString();
         }
     }
 }
