@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteKeeperChallenge.Model.Services;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -15,9 +16,9 @@ namespace NoteKeeperChallenge
         public NoteKeeperForm()
         {
             InitializeComponent();
-            _noteKeeperOperator = NoteKeeperOperator.GetInstance();
+            _noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)));
             _noteKeeperOperator.OpenLastSavedNote();
-            UpdateNoteMetaData();
+            UpdateNoteMetaDataOnForms();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -30,7 +31,7 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator.Save(NoteTitleTextBox.Text, NoteTextBox.Text);
-                UpdateNoteMetaData();
+                UpdateNoteMetaDataOnForms();
                 MessageBox.Show("File has been saved!");
             }
             catch (IOException io)
@@ -39,7 +40,7 @@ namespace NoteKeeperChallenge
             }
         }
 
-        private void UpdateNoteMetaData()
+        private void UpdateNoteMetaDataOnForms()
         {
             _noteKeeperOperator.LoadContentFromNote(out _title, out _text, out _created, out _lastEdited);
             NoteTitleTextBox.Text = _title;

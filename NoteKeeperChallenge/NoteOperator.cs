@@ -10,28 +10,18 @@ namespace NoteKeeperChallenge
         private IStorageService _storageService;
         private Note _note;
         private const string FILE_NAME_WITHOUT_EXTENSION = "foo";
-        private const string FILE_NAME = "foo.json";
-        private static NoteKeeperOperator _noteOperator;
+        private const string FILE_NAME_JSON = "foo.json";
 
         private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\SerializedNotes"));
 
-        private NoteKeeperOperator(IStorageService service)
+        public NoteKeeperOperator(IStorageService service)
         {
             _storageService = service;
         }
 
-        public static NoteKeeperOperator GetInstance()
-        {
-            if(_noteOperator == null)
-            {
-                _noteOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)));
-            }
-            return _noteOperator;
-        }
-
         public void Save(string title, string text)
         {
-            if (File.Exists(Path.Combine(PATH, FILE_NAME)))
+            if (File.Exists(Path.Combine(PATH, FILE_NAME_JSON)))
             {
                 _note.Title = title;
                 _note.Text = text;
@@ -47,8 +37,8 @@ namespace NoteKeeperChallenge
 
         public void OpenLastSavedNote()
         {
-            if (!File.Exists(Path.Combine(PATH, FILE_NAME))) return;
-            _note = (Note)_storageService.OpenFile(Path.Combine(PATH, FILE_NAME));
+            if (!File.Exists(Path.Combine(PATH, FILE_NAME_JSON))) return;
+            _note = (Note)_storageService.OpenFile(Path.Combine(PATH, FILE_NAME_JSON));
         }
 
         public void LoadContentFromNote(out string title, out string text, out string createdText, out string lastEditedText)

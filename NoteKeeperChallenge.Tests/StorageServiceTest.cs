@@ -1,5 +1,6 @@
 using NoteKeeperChallenge.Model.Services;
 using System;
+using System.IO;
 using Xunit;
 
 namespace NoteKeeperChallenge.Tests
@@ -10,17 +11,19 @@ namespace NoteKeeperChallenge.Tests
         private const string PATH = @"C:\GitHub\NoteKeeperChallenge\NoteKeeperChallenge\SerializedNotes";
 
         [Fact]
-        public void SaveToFile_GivenTitleAndText_WhenSavingFile_ThenTheContentShouldBeEqual()
+        public void SaveToFile_GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
         {
             //Arrange
-            TestStorageService testStorage = new TestStorageService();
-            NoteKeeperOperator noteKeeper = NoteKeeperOperator.GetInstance();
+            JSONStorageService storageService = new JSONStorageService(typeof(Note));
             //Act
-            noteKeeper.Save("Titel", "Lorem ipsum");
+            Note savedNote = new Note("Titel", "Foo", DateTime.Now, DateTime.Now); 
+            storageService.SaveToFile(savedNote, Path.Combine(PATH, "test.json"));
+            Note noteToRead = (Note)storageService.OpenFile(Path.Combine(PATH, "test.json"));
             //Assert
-            Assert.Equal("Titel", testStorage.TestTitle);
-            Assert.Equal("Lorem ipsum", testStorage.TestText);
-            Assert.Equal(PATH + "Titel", testStorage.TestPath);
+            Assert.Equal(savedNote.Title, noteToRead.Title);
+            Assert.Equal(savedNote.Text, noteToRead.Text);
+            Assert.Equal(savedNote.Created, noteToRead.Created);
+            Assert.Equal(savedNote.LastEdited, noteToRead.LastEdited);
         }
 
         //[Fact]
