@@ -1,4 +1,5 @@
-﻿using NoteKeeperChallenge.Model.Services;
+﻿using NoteKeeperChallenge.Models;
+using NoteKeeperChallenge.Services;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -39,7 +40,7 @@ namespace NoteKeeperChallenge
 
         private void UpdateNoteMetaDataOnForms()
         {
-            if (_noteKeeperOperator.Note == null) return;
+            if(_noteKeeperOperator.Note == null) return;
             NoteTitleTextBox.Text = _noteKeeperOperator.Note.Title;
             NoteTextBox.Text = _noteKeeperOperator.Note.Text;
             CreatedDateLabel.Text = _noteKeeperOperator.Note.Created.ToString();

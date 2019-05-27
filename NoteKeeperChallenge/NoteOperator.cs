@@ -1,4 +1,5 @@
-﻿using NoteKeeperChallenge.Model.Services;
+﻿using NoteKeeperChallenge.Models;
+using NoteKeeperChallenge.Services;
 using System;
 using System.IO;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NoteKeeperChallenge.Model.Services
+namespace NoteKeeperChallenge.Services
 {
     public interface IStorageService
     {

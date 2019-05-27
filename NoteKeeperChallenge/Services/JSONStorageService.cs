@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Xml;
 
-namespace NoteKeeperChallenge.Model.Services
+namespace NoteKeeperChallenge.Services
 {
     public class JSONStorageService : IStorageService
     {

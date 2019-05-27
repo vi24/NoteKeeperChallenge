@@ -47,16 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Note.cs" />
     <Compile Include="NoteKeeperForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NoteKeeperForm.Designer.cs">
       <DependentUpon>NoteKeeperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Note.cs" />
-    <Compile Include="Model\Services\IStorageService.cs" />
-    <Compile Include="Model\Services\JSONStorageService.cs" />
-    <Compile Include="Model\Services\XMLStorageService.cs" />
+    <Compile Include="Services\IStorageService.cs" />
+    <Compile Include="Services\JSONStorageService.cs" />
+    <Compile Include="Services\XMLStorageService.cs" />
     <Compile Include="NoteOperator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

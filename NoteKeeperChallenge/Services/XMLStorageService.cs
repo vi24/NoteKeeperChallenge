@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NoteKeeperChallenge.Models;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 
-namespace NoteKeeperChallenge.Model.Services
+namespace NoteKeeperChallenge.Services
 {
     public class XMLStorageService : IStorageService
     {
