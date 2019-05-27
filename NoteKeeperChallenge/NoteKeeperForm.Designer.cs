@@ -106,7 +106,7 @@
             this.LastEditedDateLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LastEditedDateLabel.Location = new System.Drawing.Point(273, 411);
             this.LastEditedDateLabel.Name = "LastEditedDateLabel";
-            this.LastEditedDateLabel.Size = new System.Drawing.Size(110, 13);
+            this.LastEditedDateLabel.Size = new System.Drawing.Size(110, 44);
             this.LastEditedDateLabel.TabIndex = 9;
             // 
             // CreatedDateLabel
@@ -114,7 +114,7 @@
             this.CreatedDateLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.CreatedDateLabel.Location = new System.Drawing.Point(86, 410);
             this.CreatedDateLabel.Name = "CreatedDateLabel";
-            this.CreatedDateLabel.Size = new System.Drawing.Size(101, 14);
+            this.CreatedDateLabel.Size = new System.Drawing.Size(101, 45);
             this.CreatedDateLabel.TabIndex = 10;
             // 
             // NoteFormat
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 448);
+            this.ClientSize = new System.Drawing.Size(448, 506);
             this.Controls.Add(this.NoteFormat);
             this.Controls.Add(this.CreatedDateLabel);
             this.Controls.Add(this.LastEditedDateLabel);

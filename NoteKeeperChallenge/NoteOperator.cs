@@ -4,45 +4,21 @@ using NoteKeeperChallenge.Model.Services;
 using NoteKeeperChallenge.ViewModel;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NoteKeeperChallenge
 {
-    public interface IStorageService
-    {
-        void SaveToFile(Note note, string path);
-        Note OpenFile(string path);
-    }
-
-    public class NoteViewModel
-    {
-        private readonly IStorageService _storageService;
-        private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\SerializedNotes"));
-
-        public NoteViewModel() { }
-
-        public NoteViewModel(IStorageService storageService)
-        {
-            _storageService = storageService;
-        }
-
-        public void SaveFile(string title, string text)
-        {
-            Note note = new Note(title, text);
-            _storageService.SaveToFile(note, Path.Combine(PATH, title.Replace(" ", "") + note.Created.Ticks));
-        }
-
-        public void OpenFile(string path)
-        {
-            _storageService.OpenFile(path);
-        }
-
-    }
-
     public class NoteKeeperOperator
     {
+        private const string META_DATA_FILENAME = "metadata.dat";
+        private const string FILE_NAME = "foo.json";
         private static NoteViewModel _noteViewModel;
         private FileFormat _format;
         private static NoteKeeperOperator _noteOperator;
+        private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\SerializedNotes"));
+        public MetaData MetaData { get; private set; }
+        private BinaryFormatter _formatter = new BinaryFormatter();
+
 
         private NoteKeeperOperator() { }
 
@@ -70,15 +46,53 @@ namespace NoteKeeperChallenge
             }
         }
 
-        public void Save(string title, string text)
+        public Note Save(string title, string text)
         {
-            if(_noteViewModel != null)
+            if(_noteViewModel == null)
             {
-                _noteViewModel.SaveFile(title, text);
+                throw new FileFormatNotDefinedException("Choose File format first!");
+            }
+            DateTime dateTime = DateTime.Now;
+            string filename = Path.Combine(PATH, title.Replace(" ", "")) + dateTime.Ticks;
+            _noteViewModel.SaveFile(title, text, filename, dateTime, dateTime);
+            WriteToMetaDataFile(dateTime, title, filename);
+            return _noteViewModel.Note;
+        }
+
+        private void WriteToMetaDataFile(DateTime dateTime, string title, string path)
+        {
+            if (MetaData == null)
+            {
+                MetaData = new MetaData(path, title, dateTime, dateTime);
+            }
+            if (MetaData.SavedFileTitle == title)
+            {
+                MetaData = new MetaData(MetaData.SavedFilePath, title, MetaData.CreatedText, dateTime);
             }
             else
             {
-                throw new FileFormatNotDefinedException("Choose File format first!");
+                MetaData = new MetaData(MetaData.SavedFilePath, title, dateTime, dateTime);
+            }
+            using (Stream output = File.Create(META_DATA_FILENAME))
+            {
+                _formatter.Serialize(output, MetaData);
+            }
+        }
+
+        public void OpenLastFile()
+        {
+            //Note note = _noteViewModel.OpenFile(PATH + FILE_NAME);
+        }
+
+        public void OpenMetaDataFile()
+        {
+            if (File.Exists(META_DATA_FILENAME))
+            {
+                using (Stream input = File.OpenRead(META_DATA_FILENAME))
+                {
+                    MetaData = (MetaData)_formatter.Deserialize(input);
+                }
+                
             }
         }
     }

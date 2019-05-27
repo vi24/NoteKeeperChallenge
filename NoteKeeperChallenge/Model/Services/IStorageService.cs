@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace NoteKeeperChallenge.Model.Services
 {
-    
+    public interface IStorageService
+    {
+        void SaveToFile(Note note, string path);
+        Note OpenFile(string path);
+    }
+
+
 }

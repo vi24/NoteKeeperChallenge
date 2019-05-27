@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\FileFormatNotDefinedException.cs" />
+    <Compile Include="MetaData.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="NoteKeeperForm.cs">
       <SubType>Form</SubType>

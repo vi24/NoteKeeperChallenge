@@ -7,7 +7,7 @@ namespace NoteKeeperChallenge.Tests
 
     public class StorageServiceTest
     {
-        private const string PATH = @"C:\Users\raviv\Documents\GitHub\NoteKeeperChallenge\";
+        private const string PATH = @"C:\GitHub\NoteKeeperChallenge\NoteKeeperChallenge\SerializedNotes";
 
         [Fact]
         public void SaveToFile_GivenTitleAndText_WhenSavingFile_ThenTheContentShouldBeEqual()
@@ -16,11 +16,11 @@ namespace NoteKeeperChallenge.Tests
             TestStorageService testStorage = new TestStorageService();
             NoteViewModel note = new NoteViewModel(testStorage);
             //Act
-            note.SaveFile("Titel", "Lorem ipsum");
+            note.SaveFile("Titel", "Lorem ipsum", PATH + "Titel", DateTime.Now, DateTime.Now);
             //Assert
             Assert.Equal("Titel", testStorage.TestTitle);
             Assert.Equal("Lorem ipsum", testStorage.TestText);
-            Assert.Equal(PATH + "Titel.txt", testStorage.TestPath);
+            Assert.Equal(PATH + "Titel", testStorage.TestPath);
         }
 
         //[Fact]

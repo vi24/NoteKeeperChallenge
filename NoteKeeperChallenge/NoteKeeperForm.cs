@@ -16,6 +16,7 @@ namespace NoteKeeperChallenge
             _noteKeeperOperator = NoteKeeperOperator.GetInstance();
             NoteFormat.Items.Add(FileFormat.JSON);
             NoteFormat.Items.Add(FileFormat.XML);
+            //_noteKeeperOperator.OpenMetaDataFile();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -28,6 +29,8 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator.Save(NoteTitleTextBox.Text, NoteTextBox.Text);
+                CreatedDateLabel.Text = _noteKeeperOperator.MetaData.CreatedText.ToString();
+                LastEditedDateLabel.Text = _noteKeeperOperator.MetaData.LastEdited.ToString();
                 MessageBox.Show("File has been saved!");
             }
             catch (IOException io)
