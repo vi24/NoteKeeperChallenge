@@ -9,13 +9,12 @@ namespace NoteKeeperChallenge.Services
     public class JSONStorageService : IStorageService
     {
         private DataContractJsonSerializer _serializer;
-        public JSONStorageService(Type type)
+        public JSONStorageService()
+        {}
+
+        public Object OpenFile(string path, Type type)
         {
             _serializer = new DataContractJsonSerializer(type);
-        }
-
-        public Object OpenFile(string path)
-        {
             using (var stream = File.Open(path, FileMode.Open))
             {
                 using (var reader = JsonReaderWriterFactory.CreateJsonReader(stream, Encoding.UTF8, XmlDictionaryReaderQuotas.Max, null))
@@ -26,8 +25,9 @@ namespace NoteKeeperChallenge.Services
             }
         }
 
-        public void SaveToFile(Object obj, string path)
+        public void SaveToFile(Object obj, string path, Type type)
         {
+            _serializer = new DataContractJsonSerializer(type);
             using (var stream = File.Open(path, FileMode.Create))
             {
                 using (var writer = JsonReaderWriterFactory.CreateJsonWriter(stream, Encoding.UTF8))

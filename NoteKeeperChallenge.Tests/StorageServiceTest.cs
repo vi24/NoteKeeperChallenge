@@ -10,17 +10,19 @@ namespace NoteKeeperChallenge.Tests
     public class StorageServiceTest
     {
         private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\SerializedNotes"));
+        private readonly Type TYPE = typeof(Note);
         private const string JSON_EXTENSION = ".json";
+        
 
         [Fact]
         public void GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
         {
             //Arrange
-            JSONStorageService storageService = new JSONStorageService(typeof(Note));
+            JSONStorageService storageService = new JSONStorageService();
             Note expectedNote = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
             //Act
-            storageService.SaveToFile(expectedNote, Path.Combine(PATH, "test" + JSON_EXTENSION));
-            Note actualNote = (Note)storageService.OpenFile(Path.Combine(PATH,"test" + JSON_EXTENSION));
+            storageService.SaveToFile(expectedNote, Path.Combine(PATH, "test" + JSON_EXTENSION), TYPE);
+            Note actualNote = (Note)storageService.OpenFile(Path.Combine(PATH,"test" + JSON_EXTENSION), TYPE);
             //Assert
             Assert.Equal(expectedNote.Title, actualNote.Title);
             Assert.Equal(expectedNote.Text, actualNote.Text);
@@ -32,7 +34,7 @@ namespace NoteKeeperChallenge.Tests
         public void GivenTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
             noteKeeperOperator.Save("Titel", "Foo");
             long previousLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
@@ -47,7 +49,7 @@ namespace NoteKeeperChallenge.Tests
         public void GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
             noteKeeperOperator.Save("Titel", "Foo");
             long createdFileTime = noteKeeperOperator.Note.Created.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
@@ -62,7 +64,7 @@ namespace NoteKeeperChallenge.Tests
         public void GivenTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
             noteKeeperOperator.Save("Titel", "Foo");
             long expectedDateTime = noteKeeperOperator.Note.Created.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
@@ -76,9 +78,9 @@ namespace NoteKeeperChallenge.Tests
         [Fact]
         public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {
-            JSONStorageService storageService = new JSONStorageService(typeof(Note));
+            JSONStorageService storageService = new JSONStorageService();
             Note note = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
-            Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A"));
+            Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A", TYPE));
         }
     }
 }

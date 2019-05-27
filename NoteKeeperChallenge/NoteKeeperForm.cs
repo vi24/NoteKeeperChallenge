@@ -1,5 +1,4 @@
-﻿using NoteKeeperChallenge.Models;
-using NoteKeeperChallenge.Services;
+﻿using NoteKeeperChallenge.Services;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -14,7 +13,7 @@ namespace NoteKeeperChallenge
         public NoteKeeperForm()
         {
             InitializeComponent();
-            _noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)));
+            _noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService());
             _noteKeeperOperator.OpenLastSavedNote();
             UpdateNoteMetaDataOnForms();
         }

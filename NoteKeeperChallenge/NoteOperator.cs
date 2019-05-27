@@ -34,19 +34,19 @@ namespace NoteKeeperChallenge
                 Note.Title = title;
                 Note.Text = text;
                 Note.LastEdited = DateTime.Now;
-                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
+                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION), typeof(Note));
             }
             else
             {
                 Note = new Note(title, text, DateTime.Now, DateTime.Now);
-                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
+                _storageService.SaveToFile(Note, Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION), typeof(Note));
             }
         }
 
         public void OpenLastSavedNote()
         {
             if (!File.Exists(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION))) return;
-            Note = (Note)_storageService.OpenFile(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION));
+            Note = (Note)_storageService.OpenFile(Path.Combine(_noteFilesDirectory, FILE_NAME + FILE_EXTENSION), typeof(Note));
         }
     }
 }
