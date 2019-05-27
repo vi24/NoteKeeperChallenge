@@ -14,7 +14,7 @@ namespace NoteKeeperChallenge.Tests
 
         private const string FILE_FORMAT = ".txt";
 
-        public void OpenFile(string path)
+        public Note OpenFile(string path)
         {
             throw new NotImplementedException();
         }

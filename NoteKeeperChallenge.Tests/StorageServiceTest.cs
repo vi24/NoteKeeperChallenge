@@ -42,5 +42,11 @@ namespace NoteKeeperChallenge.Tests
         {
 
         }
+
+        [Fact]
+        public void SaveToFile_GivenTitle_WhenSavingFile_ThenFileNameShouldBeDifferent()
+        {
+
+        }
     }
 }

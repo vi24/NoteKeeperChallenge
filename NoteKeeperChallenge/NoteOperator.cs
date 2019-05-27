@@ -3,6 +3,7 @@ using NoteKeeperChallenge.Model;
 using NoteKeeperChallenge.Model.Services;
 using NoteKeeperChallenge.ViewModel;
 using System;
+using System.IO;
 
 namespace NoteKeeperChallenge
 {
@@ -15,7 +16,7 @@ namespace NoteKeeperChallenge
     public class NoteViewModel
     {
         private readonly IStorageService _storageService;
-        private const string PATH = @"$env:temp\";
+        private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\SerializedNotes"));
 
         public NoteViewModel() { }
 
@@ -27,7 +28,7 @@ namespace NoteKeeperChallenge
         public void SaveFile(string title, string text)
         {
             Note note = new Note(title, text);
-            _storageService.SaveToFile(note, PATH);
+            _storageService.SaveToFile(note, Path.Combine(PATH, title.Replace(" ", "") + note.Created.Ticks));
         }
 
         public void OpenFile(string path)

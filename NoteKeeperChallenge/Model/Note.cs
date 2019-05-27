@@ -31,6 +31,14 @@ namespace NoteKeeperChallenge
             LastEdited = DateTime.Now;
         }
 
+        public Note (string title, string text, DateTime created, DateTime lastEdited)
+        {
+            Title = title;
+            Text = text;
+            Created = created;
+            LastEdited = lastEdited;
+        }
+
         public Note() { }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)

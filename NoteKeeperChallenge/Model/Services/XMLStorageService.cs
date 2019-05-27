@@ -29,8 +29,8 @@ namespace NoteKeeperChallenge.Model.Services
 
         public void SaveToFile(Note note, string path)
         {
-            using (var output = new StreamWriter(path))
-            using (var writer = new XmlTextWriter(output))
+            using (var output = new StreamWriter(path + ".xml"))
+            using (var writer = new XmlTextWriter(output) {Formatting = Formatting.Indented})
             {
                 _serializer.WriteObject(writer, note);
             }
