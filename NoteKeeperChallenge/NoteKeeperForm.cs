@@ -9,6 +9,7 @@ namespace NoteKeeperChallenge
     {
         NoteKeeperOperator _noteKeeperOperator;
 
+
         public NoteKeeperForm()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace NoteKeeperChallenge
 
         private void UpdateNoteMetaDataOnForms()
         {
+            if (_noteKeeperOperator.Note == null) return;
             NoteTitleTextBox.Text = _noteKeeperOperator.Note.Title;
             NoteTextBox.Text = _noteKeeperOperator.Note.Text;
             CreatedDateLabel.Text = _noteKeeperOperator.Note.Created.ToString();

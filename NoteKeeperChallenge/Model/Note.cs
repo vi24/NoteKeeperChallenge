@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteKeeperChallenge
 {
@@ -24,6 +20,7 @@ namespace NoteKeeperChallenge
         [DataMember]
         public DateTime LastEdited { get => _lastEdited; set => _lastEdited = value; }
 
+
         public Note (string title, string text, DateTime created, DateTime lastEdited)
         {
             Title = title;
@@ -36,8 +33,8 @@ namespace NoteKeeperChallenge
         {
             info.AddValue("Title", Title);
             info.AddValue("Text", Text);
-            info.AddValue("Created", Created.ToLongDateString());
-            info.AddValue("LastEdited", Created.ToLongDateString());
+            info.AddValue("Created", Created);
+            info.AddValue("LastEdited", LastEdited);
         }
     }
 }

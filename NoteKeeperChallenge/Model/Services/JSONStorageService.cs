@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
 
 namespace NoteKeeperChallenge.Model.Services
 {
@@ -19,10 +17,12 @@ namespace NoteKeeperChallenge.Model.Services
         public Object OpenFile(string path)
         {
             using (var stream = File.Open(path, FileMode.Open))
-            //using (var reader = JsonReaderWriterFactory.CreateJsonReader(stream))
             {
-                Object obj= _serializer.ReadObject(stream);
-                return obj;
+                using (var reader = JsonReaderWriterFactory.CreateJsonReader(stream, Encoding.UTF8, XmlDictionaryReaderQuotas.Max, null))
+                {
+                    Object obj = _serializer.ReadObject(reader);
+                    return obj;
+                }
             }
         }
 

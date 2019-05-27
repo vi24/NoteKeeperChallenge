@@ -1,7 +1,6 @@
 ﻿using NoteKeeperChallenge.Model.Services;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NoteKeeperChallenge
 {
@@ -25,7 +24,6 @@ namespace NoteKeeperChallenge
             _storageService = service;
             _noteFilesDirectory = noteFilesDirectory;
         }
-
 
         public void Save(string title, string text)
         {

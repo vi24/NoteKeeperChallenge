@@ -12,7 +12,7 @@ namespace NoteKeeperChallenge.Tests
         private const string JSON_EXTENSION = ".json";
 
         [Fact]
-        public void SaveToFile_GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
+        public void GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
         {
             //Arrange
             JSONStorageService storageService = new JSONStorageService(typeof(Note));
@@ -23,50 +23,61 @@ namespace NoteKeeperChallenge.Tests
             //Assert
             Assert.Equal(expectedNote.Title, actualNote.Title);
             Assert.Equal(expectedNote.Text, actualNote.Text);
-            Assert.Equal(expectedNote.LastEdited, actualNote.LastEdited);
-            Assert.Equal(expectedNote.Created, actualNote.Created);
+            Assert.Equal(expectedNote.LastEdited.ToString(), actualNote.LastEdited.ToString());
+            Assert.Equal(expectedNote.Created.ToString(), actualNote.Created.ToString());
         }
 
         [Fact]
-        public void SaveToFile_GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
+        public void GivenTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
         {
             //Arrange
             NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
             noteKeeperOperator.Save("Titel", "Foo");
-            string expectedDateTime = noteKeeperOperator.Note.LastEdited.ToString();
+            long previousLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
             //Act
             noteKeeperOperator.Save("Titel", "Foo");
-            string actualDateTime = noteKeeperOperator.Note.LastEdited.ToString();
+            long currentLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             //Assert
-            Assert.NotEqual(expectedDateTime, actualDateTime);
-
+            Assert.True(currentLastEditedFileTime > previousLastEditedFileTime);
         }
 
-        //[Fact]
-        //public void OpenFile_GivenTitleAndText_WhenOpeningFile_ThenTheContentShouldBeEqual()
-        //{
-        //    //Arrange
-        //    TestStorageService testStorage = new TestStorageService();
-        //    NoteViewModel note = new NoteViewModel(testStorage);
-        //    //Act
-        //    note.OpenFile()
-        //    //Assert
-        //    Assert.Equal("Titel", testStorage.TestTitle);
-        //    Assert.Equal("Lorem ipsum", testStorage.TestText);
-        //    Assert.Equal(PATH + "Titel.txt", testStorage.TestPath);
-        //}
+        [Fact]
+        public void GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
+        {
+            //Arrange
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
+            noteKeeperOperator.Save("Titel", "Foo");
+            long createdFileTime = noteKeeperOperator.Note.Created.ToFileTime();
+            noteKeeperOperator.OpenLastSavedNote();
+            //Act
+            noteKeeperOperator.Save("Titel", "Foo");
+            long lastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
+            //Assert
+            Assert.True(lastEditedFileTime > createdFileTime);
+        }
 
         [Fact]
-        public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowException()
+        public void GivenTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
+        {
+            //Arrange
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(typeof(Note)), PATH);
+            noteKeeperOperator.Save("Titel", "Foo");
+            long expectedDateTime = noteKeeperOperator.Note.Created.ToFileTime();
+            noteKeeperOperator.OpenLastSavedNote();
+            //Act
+            noteKeeperOperator.Save("Titel", "Foo");
+            long actualDateTime = noteKeeperOperator.Note.Created.ToFileTime();
+            //Assert
+            Assert.Equal(expectedDateTime, actualDateTime);
+
+        }
+        [Fact]
+        public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {
             JSONStorageService storageService = new JSONStorageService(typeof(Note));
-        }
-
-        [Fact]
-        public void SaveToFile_GivenTitle_WhenSavingFile_ThenFileNameShouldBeDifferent()
-        {
-
+            Note note = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
+            Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A"));
         }
     }
 }

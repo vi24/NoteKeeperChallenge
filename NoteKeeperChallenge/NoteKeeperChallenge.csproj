@@ -47,15 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetaData.cs" />
-    <Compile Include="Model\State.cs" />
     <Compile Include="NoteKeeperForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NoteKeeperForm.Designer.cs">
       <DependentUpon>NoteKeeperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\FileFormat.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="Model\Services\IStorageService.cs" />
     <Compile Include="Model\Services\JSONStorageService.cs" />
