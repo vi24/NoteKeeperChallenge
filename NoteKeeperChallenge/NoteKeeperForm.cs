@@ -1,7 +1,4 @@
-﻿using NoteKeeperChallenge.Exceptions;
-using NoteKeeperChallenge.Model;
-using NoteKeeperChallenge.ViewModel;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -10,18 +7,22 @@ namespace NoteKeeperChallenge
     public partial class NoteKeeperForm : Form
     {
         NoteKeeperOperator _noteKeeperOperator;
+        private string _title;
+        private string _text;
+        private string _created;
+        private string _lastEdited;
+
         public NoteKeeperForm()
         {
             InitializeComponent();
             _noteKeeperOperator = NoteKeeperOperator.GetInstance();
-            NoteFormat.Items.Add(FileFormat.JSON);
-            NoteFormat.Items.Add(FileFormat.XML);
-            //_noteKeeperOperator.OpenMetaDataFile();
+            _noteKeeperOperator.OpenLastSavedNote();
+            UpdateNoteMetaData();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(NoteTextBox.Text))
+            if (String.IsNullOrWhiteSpace(NoteTitleTextBox.Text))
             {
                 MessageBox.Show("Title is empty!");
                 return;
@@ -29,31 +30,22 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator.Save(NoteTitleTextBox.Text, NoteTextBox.Text);
-                CreatedDateLabel.Text = _noteKeeperOperator.MetaData.CreatedText.ToString();
-                LastEditedDateLabel.Text = _noteKeeperOperator.MetaData.LastEdited.ToString();
+                UpdateNoteMetaData();
                 MessageBox.Show("File has been saved!");
             }
             catch (IOException io)
             {
                 MessageBox.Show("An Error has occured: \n\n" + io.Message);
             }
-            catch (FileFormatNotDefinedException ff)
-            {
-                MessageBox.Show(ff.Message);
-            }
-            
         }
 
-        private void NoteFormat_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateNoteMetaData()
         {
-            if(NoteFormat.SelectedItem.ToString() == FileFormat.XML.ToString())
-            {
-                _noteKeeperOperator.PrepareService(FileFormat.XML);
-            }
-            if(NoteFormat.SelectedItem.ToString() == FileFormat.JSON.ToString())
-            {
-                _noteKeeperOperator.PrepareService(FileFormat.JSON);
-            }
+            _noteKeeperOperator.LoadContentFromNote(out _title, out _text, out _created, out _lastEdited);
+            NoteTitleTextBox.Text = _title;
+            NoteTextBox.Text = _text;
+            CreatedDateLabel.Text = _created;
+            LastEditedDateLabel.Text = _lastEdited;
         }
     }
 }

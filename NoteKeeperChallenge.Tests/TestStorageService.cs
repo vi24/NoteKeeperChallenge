@@ -19,11 +19,17 @@ namespace NoteKeeperChallenge.Tests
             throw new NotImplementedException();
         }
 
-        public void SaveToFile(Note note, string path)
+        public void SaveToFile(object obj, string path)
         {
+            Note note = (Note)obj;
             TestTitle = note.Title;
             TestText = note.Text;
             TestPath = path + TestTitle + FILE_FORMAT;
+        }
+
+        object IStorageService.OpenFile(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

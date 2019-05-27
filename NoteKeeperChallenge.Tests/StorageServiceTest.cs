@@ -1,4 +1,4 @@
-using NoteKeeperChallenge.ViewModel;
+using NoteKeeperChallenge.Model.Services;
 using System;
 using Xunit;
 
@@ -14,9 +14,9 @@ namespace NoteKeeperChallenge.Tests
         {
             //Arrange
             TestStorageService testStorage = new TestStorageService();
-            NoteViewModel note = new NoteViewModel(testStorage);
+            NoteKeeperOperator noteKeeper = NoteKeeperOperator.GetInstance();
             //Act
-            note.SaveFile("Titel", "Lorem ipsum", PATH + "Titel", DateTime.Now, DateTime.Now);
+            noteKeeper.Save("Titel", "Lorem ipsum");
             //Assert
             Assert.Equal("Titel", testStorage.TestTitle);
             Assert.Equal("Lorem ipsum", testStorage.TestText);
@@ -40,7 +40,7 @@ namespace NoteKeeperChallenge.Tests
         [Fact]
         public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowException()
         {
-
+            JSONStorageService storageService = new JSONStorageService(typeof(Note));
         }
 
         [Fact]

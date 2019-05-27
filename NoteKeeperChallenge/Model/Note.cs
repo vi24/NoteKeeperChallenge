@@ -14,6 +14,7 @@ namespace NoteKeeperChallenge
         private string _text;
         private DateTime _created;
         private DateTime _lastEdited;
+
         [DataMember]
         public string Text { get => _text; set => _text = value; }
         [DataMember]
@@ -23,14 +24,6 @@ namespace NoteKeeperChallenge
         [DataMember]
         public DateTime LastEdited { get => _lastEdited; set => _lastEdited = value; }
 
-        public Note (string title, string text)
-        {
-            Title = title;
-            Text = text;
-            Created = DateTime.Now;
-            LastEdited = DateTime.Now;
-        }
-
         public Note (string title, string text, DateTime created, DateTime lastEdited)
         {
             Title = title;
@@ -38,8 +31,6 @@ namespace NoteKeeperChallenge
             Created = created;
             LastEdited = lastEdited;
         }
-
-        public Note() { }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {

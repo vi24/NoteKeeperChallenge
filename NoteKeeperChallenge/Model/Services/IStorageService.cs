@@ -8,8 +8,8 @@ namespace NoteKeeperChallenge.Model.Services
 {
     public interface IStorageService
     {
-        void SaveToFile(Note note, string path);
-        Note OpenFile(string path);
+        void SaveToFile(Object obj, string path);
+        Object OpenFile(string path);
     }
 
 

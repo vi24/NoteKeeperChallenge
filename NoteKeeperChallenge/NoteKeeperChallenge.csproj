@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\FileFormatNotDefinedException.cs" />
     <Compile Include="MetaData.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="NoteKeeperForm.cs">
@@ -64,7 +63,6 @@
     <Compile Include="NoteOperator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\NoteViewModel.cs" />
     <EmbeddedResource Include="NoteKeeperForm.resx">
       <DependentUpon>NoteKeeperForm.cs</DependentUpon>
     </EmbeddedResource>

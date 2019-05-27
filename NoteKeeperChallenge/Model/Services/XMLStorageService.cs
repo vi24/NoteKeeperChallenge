@@ -13,26 +13,28 @@ namespace NoteKeeperChallenge.Model.Services
     public class XMLStorageService : IStorageService
     {
         private DataContractSerializer _serializer;
-        public XMLStorageService()
+        public XMLStorageService(Type type)
         {
-            _serializer = new DataContractSerializer(typeof(Note));
+            _serializer = new DataContractSerializer(type);
         }
 
-        public Note OpenFile(string path)
+        public void SaveToFile(object obj, string path)
         {
-            using(Stream stream = File.OpenRead(path))
+            using (var output = new StreamWriter(path + ".xml"))
             {
-                Note note = (Note)_serializer.ReadObject(stream);
-                return note;
+                using (var writer = new XmlTextWriter(output) { Formatting = Formatting.Indented })
+                {
+                    _serializer.WriteObject(writer, obj);
+                }
             }
         }
 
-        public void SaveToFile(Note note, string path)
+        object IStorageService.OpenFile(string path)
         {
-            using (var output = new StreamWriter(path + ".xml"))
-            using (var writer = new XmlTextWriter(output) {Formatting = Formatting.Indented})
+            using (Stream stream = File.OpenRead(path))
             {
-                _serializer.WriteObject(writer, note);
+                Note note = (Note)_serializer.ReadObject(stream);
+                return note;
             }
         }
     }
