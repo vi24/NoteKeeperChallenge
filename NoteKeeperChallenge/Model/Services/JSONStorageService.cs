@@ -8,7 +8,13 @@ namespace NoteKeeperChallenge.Model.Services
 {
     public class JSONStorageService : IStorageService
     {
-        public void OpenFile(string path)
+        //private JsonSerializer _serializer;
+        public JSONStorageService()
+        {
+
+        }
+
+        public Note OpenFile(string path)
         {
             throw new NotImplementedException();
         }

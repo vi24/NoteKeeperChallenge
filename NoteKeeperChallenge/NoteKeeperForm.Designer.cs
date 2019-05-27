@@ -1,6 +1,6 @@
 ﻿namespace NoteKeeperChallenge
 {
-    partial class Form1
+    partial class NoteKeeperForm
     {
         /// <summary>
         /// Required designer variable.
@@ -119,13 +119,15 @@
             // 
             // NoteFormat
             // 
+            this.NoteFormat.BackColor = System.Drawing.Color.White;
             this.NoteFormat.FormattingEnabled = true;
-            this.NoteFormat.Location = new System.Drawing.Point(301, 230);
+            this.NoteFormat.Location = new System.Drawing.Point(296, 230);
             this.NoteFormat.Name = "NoteFormat";
             this.NoteFormat.Size = new System.Drawing.Size(121, 21);
             this.NoteFormat.TabIndex = 11;
+            this.NoteFormat.SelectedIndexChanged += new System.EventHandler(this.NoteFormat_SelectedIndexChanged);
             // 
-            // Form1
+            // NoteKeeperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -140,7 +142,7 @@
             this.Controls.Add(this.NoteLabel);
             this.Controls.Add(this.NoteTextBox);
             this.Controls.Add(this.NoteTitleTextBox);
-            this.Name = "Form1";
+            this.Name = "NoteKeeperForm";
             this.Text = "Note Keeper";
             this.ResumeLayout(false);
             this.PerformLayout();

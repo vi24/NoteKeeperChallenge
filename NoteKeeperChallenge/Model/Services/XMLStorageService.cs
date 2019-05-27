@@ -2,30 +2,37 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace NoteKeeperChallenge.Model.Services
 {
     public class XMLStorageService : IStorageService
     {
-        private XmlSerializer _serializer;
+        private DataContractSerializer _serializer;
         public XMLStorageService()
         {
-            _serializer = new XmlSerializer(typeof(Note));
+            _serializer = new DataContractSerializer(typeof(Note));
         }
 
-        public void OpenFile(string path)
+        public Note OpenFile(string path)
         {
-            throw new NotImplementedException();
+            using(Stream stream = File.OpenRead(path))
+            {
+                Note note = (Note)_serializer.ReadObject(stream);
+                return note;
+            }
         }
 
         public void SaveToFile(Note note, string path)
         {
-            using (TextWriter tw = new StreamWriter(path))
+            using (var output = new StreamWriter(path))
+            using (var writer = new XmlTextWriter(output))
             {
-                _serializer.Serialize(tw, note);
+                _serializer.WriteObject(writer, note);
             }
         }
     }
