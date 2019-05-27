@@ -7,8 +7,7 @@ namespace NoteKeeperChallenge
 {
     public partial class NoteKeeperForm : Form
     {
-        NoteKeeperOperator _noteKeeperOperator;
-
+        private NoteKeeperOperator _noteKeeperOperator;
 
         public NoteKeeperForm()
         {

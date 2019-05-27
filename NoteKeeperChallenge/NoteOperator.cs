@@ -7,12 +7,11 @@ namespace NoteKeeperChallenge
 {
     public class NoteKeeperOperator
     {
-        private IStorageService _storageService;
-        public Note Note { get; private set; }
         private const string FILE_NAME = "foo";
         private const string FILE_EXTENSION = ".json";
-
+        private IStorageService _storageService;
         private readonly string _noteFilesDirectory;
+        public Note Note { get; private set; }
 
         public NoteKeeperOperator(IStorageService service)
         {

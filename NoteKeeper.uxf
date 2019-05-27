@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>540</x>
-      <y>470</y>
+      <y>480</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -16,7 +16,7 @@
     <id>UMLInterface</id>
     <coordinates>
       <x>530</x>
-      <y>290</y>
+      <y>300</y>
       <w>120</w>
       <h>100</h>
     </coordinates>
@@ -30,7 +30,7 @@ OpenFile</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>260</x>
-      <y>470</y>
+      <y>480</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -40,7 +40,7 @@ OpenFile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
+      <x>270</x>
       <y>210</y>
       <w>100</w>
       <h>30</h>
@@ -51,24 +51,24 @@ OpenFile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
+      <x>310</x>
       <y>230</y>
       <w>30</w>
-      <h>260</h>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;240.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>350</x>
-      <y>470</y>
+      <y>480</y>
       <w>210</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>190.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>190.0;10.0;110.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -98,10 +98,10 @@ OpenFile</panel_attributes>
       <x>580</x>
       <y>230</y>
       <w>120</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;80.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -109,16 +109,16 @@ OpenFile</panel_attributes>
       <x>490</x>
       <y>230</y>
       <w>120</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>100.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>350</x>
-      <y>340</y>
+      <y>350</y>
       <w>200</w>
       <h>160</h>
     </coordinates>
@@ -128,12 +128,12 @@ OpenFile</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
+      <x>360</x>
       <y>210</y>
       <w>200</w>
-      <h>120</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>180.0;100.0;10.0;10.0</additional_attributes>
+    <additional_attributes>180.0;130.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

@@ -20,21 +20,12 @@ namespace NoteKeeperChallenge.Models
         [DataMember]
         public DateTime LastEdited { get => _lastEdited; set => _lastEdited = value; }
 
-
         public Note (string title, string text, DateTime created, DateTime lastEdited)
         {
             Title = title;
             Text = text;
             Created = created;
             LastEdited = lastEdited;
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Title", Title);
-            info.AddValue("Text", Text);
-            info.AddValue("Created", Created);
-            info.AddValue("LastEdited", LastEdited);
         }
     }
 }
