@@ -7,9 +7,9 @@ using Xunit;
 namespace NoteKeeperChallenge.Tests
 {
 
-    public class StorageServiceTest
+    public class OperatorStorageIntegrationTest
     {
-        private readonly string PATH = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\SerializedNotes"));
+        private readonly string PATH = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\SerializedNotes");
         private readonly Type TYPE = typeof(Note);
         private const string JSON_EXTENSION = ".json";
         
@@ -31,45 +31,44 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void GivenTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
+        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
         {
             //Arrange
             NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long previousLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
             //Act
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long currentLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             //Assert
             Assert.True(currentLastEditedFileTime > previousLastEditedFileTime);
         }
 
         [Fact]
-        public void GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
+        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
         {
             //Arrange
             NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long createdFileTime = noteKeeperOperator.Note.Created.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
             //Act
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long lastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             //Assert
             Assert.True(lastEditedFileTime > createdFileTime);
         }
 
         [Fact]
-        public void GivenTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
+        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
         {
             //Arrange
             NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long expectedDateTime = noteKeeperOperator.Note.Created.ToFileTime();
-            noteKeeperOperator.OpenLastSavedNote();
             //Act
-            noteKeeperOperator.Save("Titel", "Foo");
+            noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long actualDateTime = noteKeeperOperator.Note.Created.ToFileTime();
             //Assert
             Assert.Equal(expectedDateTime, actualDateTime);

@@ -1,5 +1,4 @@
-﻿using NoteKeeperChallenge.Models;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -8,16 +7,20 @@ namespace NoteKeeperChallenge.Services
 {
     public class XMLStorageService : IStorageService
     {
+        public string FileExtensionName { get; }
+
         private DataContractSerializer _serializer;
         public XMLStorageService()
-        {}
+        {
+            FileExtensionName = ".xml";
+        }
 
         public void SaveToFile(object obj, string path, Type type)
         {
             _serializer = new DataContractSerializer(type);
-            using (var output = new StreamWriter(path + ".xml"))
+            using (var stream = new StreamWriter(path))
             {
-                using (var writer = new XmlTextWriter(output) { Formatting = Formatting.Indented })
+                using (var writer = new XmlTextWriter(stream) { Formatting = Formatting.Indented })
                 {
                     _serializer.WriteObject(writer, obj);
                 }
@@ -29,8 +32,8 @@ namespace NoteKeeperChallenge.Services
             _serializer = new DataContractSerializer(type);
             using (Stream stream = File.OpenRead(path))
             {
-                Note note = (Note)_serializer.ReadObject(stream);
-                return note;
+                Object obj = _serializer.ReadObject(stream);
+                return obj;
             }
         }
     }
