@@ -1,11 +1,9 @@
-﻿using NoteKeeperChallenge.Model;
-using NoteKeeperChallenge.Models;
-using NoteKeeperChallenge.Services;
+﻿using NoteKeeperChallenge.Services;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace NoteKeeperChallenge
+namespace NoteKeeperChallenge.Model
 {
     public class NoteKeeperOperator
     {

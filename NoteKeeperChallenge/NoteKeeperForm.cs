@@ -1,4 +1,5 @@
-﻿using NoteKeeperChallenge.Services;
+﻿using NoteKeeperChallenge.Model;
+using NoteKeeperChallenge.Services;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ namespace NoteKeeperChallenge
 {
     public partial class NoteKeeperForm : Form
     {
-        private NoteKeeperOperator _noteKeeperOperator;
+        private readonly NoteKeeperOperator _noteKeeperOperator;
 
         public NoteKeeperForm()
         {

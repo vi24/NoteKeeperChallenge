@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace NoteKeeperChallenge.Models
+namespace NoteKeeperChallenge.Model
 {
     [DataContract]
     public class Note

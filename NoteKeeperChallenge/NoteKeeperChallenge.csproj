@@ -55,10 +55,10 @@
     <Compile Include="NoteKeeperForm.Designer.cs">
       <DependentUpon>NoteKeeperForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\NoteOperator.cs" />
     <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Services\JSONStorageService.cs" />
     <Compile Include="Services\XMLStorageService.cs" />
-    <Compile Include="NoteOperator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="NoteKeeperForm.resx">
