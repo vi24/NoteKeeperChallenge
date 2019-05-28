@@ -60,8 +60,6 @@ namespace NoteKeeperChallenge
             WriteLastSavedNoteToMetaDataFile();
         }
 
-        
-
         public void OpenNote(string fullPathName)
         {
             if (!File.Exists(fullPathName)) return;

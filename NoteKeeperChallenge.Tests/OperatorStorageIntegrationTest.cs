@@ -6,14 +6,12 @@ using Xunit;
 
 namespace NoteKeeperChallenge.Tests
 {
-
     public class OperatorStorageIntegrationTest
     {
         private readonly string PATH = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\SerializedNotes");
         private readonly Type TYPE = typeof(Note);
         private const string JSON_EXTENSION = ".json";
         
-
         [Fact]
         public void GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
         {
@@ -74,6 +72,7 @@ namespace NoteKeeperChallenge.Tests
             Assert.Equal(expectedDateTime, actualDateTime);
 
         }
+
         [Fact]
         public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {

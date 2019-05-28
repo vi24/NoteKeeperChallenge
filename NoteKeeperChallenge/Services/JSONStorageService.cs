@@ -8,8 +8,9 @@ namespace NoteKeeperChallenge.Services
 {
     public class JSONStorageService : IStorageService
     {
-        public string FileExtensionName { get; }
         private DataContractJsonSerializer _serializer;
+        public string FileExtensionName { get; }
+
         public JSONStorageService()
         {
             FileExtensionName = ".json";

@@ -7,9 +7,9 @@ namespace NoteKeeperChallenge.Services
 {
     public class XMLStorageService : IStorageService
     {
+        private DataContractSerializer _serializer;
         public string FileExtensionName { get; }
 
-        private DataContractSerializer _serializer;
         public XMLStorageService()
         {
             FileExtensionName = ".xml";
