@@ -27,7 +27,7 @@ namespace NoteKeeperChallenge.Services
             }
         }
 
-        object IStorageService.OpenFile(string path, Type type)
+        public object OpenFile(string path, Type type)
         {
             _serializer = new DataContractSerializer(type);
             using (Stream stream = File.OpenRead(path))
