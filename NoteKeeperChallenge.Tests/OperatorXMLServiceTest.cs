@@ -1,26 +1,28 @@
-using NoteKeeperChallenge.Models;
+﻿using NoteKeeperChallenge.Models;
 using NoteKeeperChallenge.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Xunit;
 
 namespace NoteKeeperChallenge.Tests
 {
-    public class OperatorStorageIntegrationTest
+    public class OperatorXMLServiceTest
     {
         private readonly string PATH = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\SerializedNotes");
         private readonly Type TYPE = typeof(Note);
-        private const string JSON_EXTENSION = ".json";
-        
+        private const string XML_EXTENSION = ".xml";
+
         [Fact]
-        public void GivenTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
+        public void GivenXMLServiceTitleAndText_WhenSavingNewFileAndReadingOut_ThenTheContentShouldBeTheSame()
         {
             //Arrange
-            JSONStorageService storageService = new JSONStorageService();
+            XMLStorageService storageService = new XMLStorageService();
             Note expectedNote = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
             //Act
-            storageService.SaveToFile(expectedNote, Path.Combine(PATH, "test" + JSON_EXTENSION), TYPE);
-            Note actualNote = (Note)storageService.OpenFile(Path.Combine(PATH,"test" + JSON_EXTENSION), TYPE);
+            storageService.SaveToFile(expectedNote, Path.Combine(PATH, "test" + XML_EXTENSION), TYPE);
+            Note actualNote = (Note)storageService.OpenFile(Path.Combine(PATH, "test" + XML_EXTENSION), TYPE);
             //Assert
             Assert.Equal(expectedNote.Title, actualNote.Title);
             Assert.Equal(expectedNote.Text, actualNote.Text);
@@ -29,10 +31,10 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
+        public void SaveWithStaticFileName_GivenXMLServiceTitleAndText_WhenOverridingOldFile_ThenCurrentLastEditedTimeShouldBeGreaterThanPreviousLastEditedTime()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService(), PATH);
             noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long previousLastEditedFileTime = noteKeeperOperator.Note.LastEdited.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
@@ -44,10 +46,10 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
+        public void SaveWithStaticFileName_GivenXMLServiceTitleAndText_WhenOverridingOldFile_ThenLastEditedTimeShouldBeGreaterThanCreatedTime()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService(), PATH);
             noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long createdFileTime = noteKeeperOperator.Note.Created.ToFileTime();
             noteKeeperOperator.OpenLastSavedNote();
@@ -59,10 +61,10 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void SaveWithStaticFileName_GivenTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
+        public void SaveWithStaticFileName_GivenXMLServiceTitleAndText_WhenOverridingOldFile_ThenCreatedTimeShouldStayTheSame()
         {
             //Arrange
-            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService(), PATH);
             noteKeeperOperator.SaveWithStaticFileName("Titel", "Foo");
             long expectedDateTime = noteKeeperOperator.Note.Created.ToFileTime();
             //Act
@@ -70,13 +72,12 @@ namespace NoteKeeperChallenge.Tests
             long actualDateTime = noteKeeperOperator.Note.Created.ToFileTime();
             //Assert
             Assert.Equal(expectedDateTime, actualDateTime);
-
         }
 
         [Fact]
-        public void SaveToFile_GivenNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
+        public void SaveToFile_GivenXMLServiceNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {
-            JSONStorageService storageService = new JSONStorageService();
+            XMLStorageService storageService = new XMLStorageService();
             Note note = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
             Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A", TYPE));
         }

@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Metadata.cs" />
+    <Compile Include="Model\MetaData.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="NoteKeeperForm.cs">
       <SubType>Form</SubType>
