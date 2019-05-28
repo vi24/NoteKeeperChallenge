@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteKeeperChallenge", "NoteKeeperChallenge.csproj", "{6D3F4150-873C-4916-A6C1-5AECA219F3D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteKeeperChallenge.Tests", "..\NoteKeeperChallenge.Tests\NoteKeeperChallenge.Tests.csproj", "{5433629D-47EA-42A3-976B-4E283DDED641}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteKeeperChallenge.Tests", "..\NoteKeeperChallenge.Tests\NoteKeeperChallenge.Tests.csproj", "{5433629D-47EA-42A3-976B-4E283DDED641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
