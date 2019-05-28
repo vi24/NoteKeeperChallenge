@@ -1,9 +1,7 @@
 ﻿using NoteKeeperChallenge.Models;
 using NoteKeeperChallenge.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Xunit;
 
 namespace NoteKeeperChallenge.Tests
@@ -75,11 +73,26 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void SaveToFile_GivenXMLServiceNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
+        public void SaveToFile_GivenXMLServiceAndNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {
             XMLStorageService storageService = new XMLStorageService();
             Note note = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
             Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A", TYPE));
+        }
+
+        [Fact]
+        public void GivenJSONServiceAndNote_WhenSavingFileAndClosingApp_ThenTheSameNoteShouldBeLoadedViaMetaDataFileNextTimeAfterOpeningApp()
+        {
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService(), PATH);
+            noteKeeperOperator.SaveWithDynamicFileName("Titel", "Foo");
+            Note expectedNote = noteKeeperOperator.Note;
+            noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService(), PATH);
+            noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+            Note actualNote = noteKeeperOperator.Note;
+            Assert.Equal(expectedNote.Title, actualNote.Title);
+            Assert.Equal(expectedNote.Text, actualNote.Text);
+            Assert.Equal(expectedNote.Created.ToString(), actualNote.Created.ToString());
+            Assert.Equal(expectedNote.LastEdited.ToString(), actualNote.LastEdited.ToString());
         }
     }
 }

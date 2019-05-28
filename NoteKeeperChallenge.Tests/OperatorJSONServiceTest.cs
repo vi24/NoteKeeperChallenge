@@ -73,11 +73,26 @@ namespace NoteKeeperChallenge.Tests
         }
 
         [Fact]
-        public void SaveToFile_GivenJSONServiceNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
+        public void SaveToFile_GivenJSONServiceAndNonExistingPath_WhenSavingFile_ThenItShouldThrowDirectoryNotFoundException()
         {
             JSONStorageService storageService = new JSONStorageService();
             Note note = new Note("Titel", "Foo", DateTime.Now, DateTime.Now);
             Assert.Throws<DirectoryNotFoundException>(() => storageService.SaveToFile(note, @"C:\NotExistingPath\A", TYPE));
+        }
+
+        [Fact]
+        public void GivenJSONServiceAndNote_WhenSavingFileAndClosingApp_ThenTheSameNoteShouldBeLoadedViaMetaDataFileNextTimeAfterOpeningApp()
+        {
+            NoteKeeperOperator noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
+            noteKeeperOperator.SaveWithDynamicFileName("Titel", "Foo");
+            Note expectedNote = noteKeeperOperator.Note;
+            noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
+            noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+            Note actualNote = noteKeeperOperator.Note;
+            Assert.Equal(expectedNote.Title, actualNote.Title);
+            Assert.Equal(expectedNote.Text, actualNote.Text);
+            Assert.Equal(expectedNote.Created.ToString(), actualNote.Created.ToString());
+            Assert.Equal(expectedNote.LastEdited.ToString(), actualNote.LastEdited.ToString());
         }
     }
 }
