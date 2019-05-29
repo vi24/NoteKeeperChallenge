@@ -82,7 +82,7 @@ namespace NoteKeeperChallenge.Operator
         private string GenerateFileName()
         {
             if (Note == null) return String.Empty;
-            return Regex.Replace(Note.Title, @"\s+", "") + Note.Created.ToFileTime().ToString() + _storageService.FileExtensionName;
+            return Regex.Replace(Note.Title, @"\s+", "") + Note.Created.ToFileTime() + _storageService.FileExtensionName;
         }
 
         private string GetFullPathOfDirectoryAndFileName()
