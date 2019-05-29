@@ -14,7 +14,7 @@ namespace NoteKeeperChallenge
         {
             InitializeComponent();
             _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
-            _noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+            _noteKeeperOperator.OpenLastSavedNote();
             UpdateNoteOnForms();
         }
 
@@ -27,7 +27,7 @@ namespace NoteKeeperChallenge
             }
             try
             {
-                _noteKeeperOperator.SaveWithDynamicFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
+                _noteKeeperOperator.SaveWithStaticFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
                 UpdateNoteOnForms();
                 MessageBox.Show("File has been saved!");
             }
