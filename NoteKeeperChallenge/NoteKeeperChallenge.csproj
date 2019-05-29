@@ -55,7 +55,7 @@
     <Compile Include="NoteKeeperForm.Designer.cs">
       <DependentUpon>NoteKeeperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Operator\NoteOperator.cs" />
+    <Compile Include="Operator\NoteKeeperOperator.cs" />
     <Compile Include="Services\IStorageService.cs" />
     <Compile Include="Services\JSONStorageService.cs" />
     <Compile Include="Services\XMLStorageService.cs" />
