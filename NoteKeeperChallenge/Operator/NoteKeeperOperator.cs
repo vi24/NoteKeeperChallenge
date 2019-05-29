@@ -21,6 +21,7 @@ namespace NoteKeeperChallenge.Operator
         {
             _storageService = service;
             _noteFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\SerializedNotes");
+            Directory.CreateDirectory(_noteFilesDirectory);
         }
 
         public NoteKeeperOperator(IStorageService service, string noteFilesDirectory)

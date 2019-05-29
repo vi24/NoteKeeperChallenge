@@ -1,6 +1,7 @@
 ﻿using NoteKeeperChallenge.Operator;
 using NoteKeeperChallenge.Services;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -13,9 +14,16 @@ namespace NoteKeeperChallenge
         public NoteKeeperForm()
         {
             InitializeComponent();
-            _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
-            _noteKeeperOperator.OpenLastSavedNote();
-            UpdateNoteOnForms();
+            try
+            {
+                _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
+                _noteKeeperOperator.OpenLastSavedNote();
+                UpdateNoteOnForms();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
