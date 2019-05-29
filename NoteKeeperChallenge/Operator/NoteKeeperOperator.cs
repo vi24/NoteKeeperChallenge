@@ -72,7 +72,7 @@ namespace NoteKeeperChallenge.Operator
             Note = (Note)_storageService.OpenFile(Path.Combine(_noteFilesDirectory, STATIC_FILE_NAME + _storageService.FileExtensionName), typeof(Note));
         }
 
-        public void OpenLastSaveNoteViaMetaData()
+        public void OpenLastSavedNoteViaMetaData()
         {
             string pathToMetaDataFile = Path.Combine(_metaDataDirectory, METADATA_FILE_NAME + _storageService.FileExtensionName);
             if (!File.Exists(pathToMetaDataFile)) return;

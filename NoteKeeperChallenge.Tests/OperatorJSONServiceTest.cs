@@ -88,7 +88,7 @@ namespace NoteKeeperChallenge.Tests
             noteKeeperOperator.SaveWithDynamicFileName("Titel", "Foo");
             Note expectedNote = noteKeeperOperator.Note;
             noteKeeperOperator = new NoteKeeperOperator(new JSONStorageService(), PATH);
-            noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+            noteKeeperOperator.OpenLastSavedNoteViaMetaData();
             Note actualNote = noteKeeperOperator.Note;
             Assert.Equal(expectedNote.Title, actualNote.Title);
             Assert.Equal(expectedNote.Text, actualNote.Text);

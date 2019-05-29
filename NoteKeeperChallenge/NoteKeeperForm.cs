@@ -17,12 +17,26 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
-                _noteKeeperOperator.OpenLastSavedNote();
+                _noteKeeperOperator.OpenLastSavedNoteViaMetaData();
                 UpdateNoteOnForms();
+            }
+            catch (UnauthorizedAccessException un)
+            {
+                Debug.WriteLine(un.Message);
+                MessageBox.Show("Currently you are unauthorized to create a Directory in this space in order to store your Notes!");
+                Application.Exit();
+            }
+            catch (IOException io)
+            {
+                Debug.WriteLine(io.Message);
+                MessageBox.Show("The specified directory path is a file!");
+                Application.Exit();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                MessageBox.Show("Oops, something went wrong! Please lookup in the non-existing Log-File!");
+                Application.Exit();
             }
         }
 
@@ -35,7 +49,7 @@ namespace NoteKeeperChallenge
             }
             try
             {
-                _noteKeeperOperator.SaveWithStaticFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
+                _noteKeeperOperator.SaveWithDynamicFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
                 UpdateNoteOnForms();
                 MessageBox.Show("File has been saved!");
             }
