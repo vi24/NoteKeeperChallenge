@@ -11,7 +11,7 @@ namespace NoteKeeperChallenge.Operator
         private const string STATIC_FILE_NAME = "foo";
         private const string METADATA_FILE_NAME = "metadata";
         private IStorageService _storageService;
-        private string _noteFilesDirectory;
+        private readonly string _noteFilesDirectory;
         private readonly string _metaDataDirectory = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
 
         public Note Note { get; private set; }
