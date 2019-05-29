@@ -23,6 +23,8 @@ namespace NoteKeeperChallenge
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                MessageBox.Show("Ain't nobody got time to catch seven different Exceptions. Pls lookup in the Non-Existing Log-File to see what went wrong (hint: probably problem with directory creation):)!");
+                Application.Exit();
             }
         }
 
