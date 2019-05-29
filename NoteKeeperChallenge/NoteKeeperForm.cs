@@ -17,7 +17,7 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
-                _noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+                _noteKeeperOperator.OpenLastSavedNoteViaMetaData();
                 UpdateNoteOnForms();
             }
             catch (UnauthorizedAccessException un)
@@ -49,7 +49,7 @@ namespace NoteKeeperChallenge
             }
             try
             {
-                _noteKeeperOperator.SaveWithStaticFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
+                _noteKeeperOperator.SaveWithDynamicFileName(NoteTitleTextBox.Text, NoteTextBox.Text);
                 UpdateNoteOnForms();
                 MessageBox.Show("File has been saved!");
             }
