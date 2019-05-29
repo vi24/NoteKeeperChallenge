@@ -17,7 +17,7 @@ namespace NoteKeeperChallenge
             try
             {
                 _noteKeeperOperator = new NoteKeeperOperator(new XMLStorageService());
-                _noteKeeperOperator.OpenLastSaveNoteViaMetaData();
+                _noteKeeperOperator.OpenLastSavedNote();
                 UpdateNoteOnForms();
             }
             catch (UnauthorizedAccessException un)
